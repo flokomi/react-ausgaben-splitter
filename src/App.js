@@ -38,7 +38,10 @@ export default function App() {
   let totalExpense = 0;
   friends.map((friend) => (totalExpense = totalExpense + friend.expense));
 
-  let averageExpense = totalExpense / friends.length;
+  let averageExpense = 0;
+  totalExpense > 0
+    ? (averageExpense = totalExpense / friends.length)
+    : (averageExpense = 0);
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48");
@@ -206,10 +209,10 @@ function AddFriend({
 
     const id = crypto.randomUUID();
     const newFriend = {
-      name,
+      name: name,
       image: `${image}?=${id}`,
-      expense,
-      id,
+      expense: expense,
+      id: id,
     };
 
     onAddFriend(newFriend);
@@ -233,6 +236,7 @@ function AddFriend({
         placeholder="https://i.pravatar.cc/48"
         value={image}
         onChange={(el) => setImage(el.target.value)}
+        disabled
       ></input>
       <label>Expense in €</label>
       <input
