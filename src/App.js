@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const friends = [
+const initialFriends = [
   {
     id: 7373983948,
     name: "Flo",
@@ -21,111 +21,299 @@ const friends = [
   },
 ];
 
-export default function App() {
+function Button({ children, onClick, friend }) {
   return (
-    <div className="splitter">
-      <Splitter />
-    </div>
-  );
-}
-
-function Button({ children, onClick }) {
-  return (
-    <button className="btn" onClick={onClick}>
+    <button className="btn {selected}" onClick={onClick}>
       {children}
     </button>
   );
 }
 
-function Splitter() {
+export default function App() {
+  const [friends, setFriends] = useState([]);
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [showEditFriend, setShowEditFriend] = useState(false);
+  const [selectedFriend, setSelectedFriend] = useState(null);
+
+  let totalExpense = 0;
+  friends.map((friend) => (totalExpense = totalExpense + friend.expense));
+
+  let averageExpense = totalExpense / friends.length;
+
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("https://i.pravatar.cc/48");
+  const [expense, setExpense] = useState("");
 
   function handleShowAddFriend() {
     setShowAddFriend((show) => !show);
 
-    // setShowEdit((show) => (showEdit ? !show : show));
+    setName("");
+    setImage("https://i.pravatar.cc/48");
+    setExpense("");
   }
 
-  function handleShowEditFriend() {
-    console.log("hi there");
-    if (showAddFriend === false) {
-      setShowEditFriend((show) => !show);
+  function handleAddFriend(newFriend) {
+    setFriends((friends) => [...friends, newFriend]);
+    setShowAddFriend(false);
+  }
+
+  function handleEditFriend(updatedFriend) {
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === updatedFriend.id
+          ? { ...friend, expense: updatedFriend.expense }
+          : friend
+      )
+    );
+    setShowEditFriend(false);
+    setSelectedFriend(null);
+  }
+
+  function handleSelection(friend) {
+    if (showAddFriend) {
+      setShowAddFriend(false);
     }
+
+    setSelectedFriend((cur) => (cur?.id === friend.id ? null : friend));
+
+    console.log(selectedFriend);
+
+    setShowEditFriend((show) =>
+      selectedFriend?.id === friend.id ? false : true
+    );
+
+    setName("");
+    setImage("https://i.pravatar.cc/48");
+    setExpense("");
   }
 
   return (
-    <div className="sidebar">
-      <FriendList onClick={handleShowEditFriend} />
+    <div className="app">
+      <h1>
+        Total: €{totalExpense}, each €{averageExpense.toFixed(0)}
+      </h1>
+      <div className="sidebar">
+        <FriendList
+          friends={friends}
+          onClick={handleSelection}
+          selectedFriend={selectedFriend}
+          onSelection={handleSelection}
+          showEditFriend={showEditFriend}
+        />
 
-      {
-        <div>
-          {showAddFriend && <AddFriend />}
-          {showEditFriend === false && (
-            <Button onClick={handleShowAddFriend}>
-              {showAddFriend ? "Add" : "Add a friend"}
-            </Button>
-          )}
-        </div>
-      }
+        {
+          <div>
+            {showAddFriend && (
+              <AddFriend
+                onAddFriend={handleAddFriend}
+                // setShowAddFriend={setShowAddFriend}
+                name={name}
+                setName={setName}
+                image={image}
+                setImage={setImage}
+                expense={expense}
+                setExpense={setExpense}
+              ></AddFriend>
+            )}
+            {showEditFriend === false && (
+              <Button onClick={handleShowAddFriend}>
+                {showAddFriend ? "Close" : "Add a friend"}
+              </Button>
+            )}
+          </div>
+        }
 
-      {
-        <div>
-          {showEditFriend && showAddFriend === false && <EditFriend />}
-          {showEditFriend && showAddFriend === false && (
-            <Button onClick={handleShowEditFriend}>
-              {showEditFriend && "Update"}
-            </Button>
-          )}
-        </div>
-      }
+        {
+          <div>
+            {showEditFriend && showAddFriend === false && (
+              <EditFriend
+                onEditFriend={handleEditFriend}
+                selectedFriend={selectedFriend}
+                name={name}
+                setName={setName}
+                image={image}
+                setImage={setImage}
+                expense={expense}
+                setExpense={setExpense}
+              />
+            )}
+          </div>
+        }
+      </div>
+      <Result friends={friends} averageExpense={averageExpense} />
     </div>
   );
 }
 
-function FriendList({ onClick }) {
+function FriendList({
+  friends,
+  onClick,
+  selectedFriend,
+  onSelection,
+  showEditFriend,
+}) {
   return (
     <ul>
       {friends.map((friend) => (
-        <Friend friend={friend} key={friend.id} onClick={onClick} />
+        <Friend
+          friend={friend}
+          key={friend.id}
+          onClick={onClick}
+          selectedFriend={selectedFriend}
+          onSelection={onSelection}
+          showEditFriend={showEditFriend}
+        />
       ))}
     </ul>
   );
 }
 
-function Friend({ friend, onClick }) {
+function Friend({
+  friend,
+  onClick,
+  selectedFriend,
+  onSelection,
+  showEditFriend,
+}) {
+  const isSelected = selectedFriend?.id === friend.id;
+
   return (
-    <li>
+    <li className={isSelected ? "selected" : ""}>
       <img src={friend.image} alt="user"></img>
       <h3>{friend.name}</h3>
       <p>€{friend.expense}</p>
-      <Button onClick={onClick}>Edit</Button>
+      <Button onClick={() => onSelection(friend)}>
+        {!isSelected ? "Edit" : "Close"}
+      </Button>
     </li>
   );
 }
 
-function AddFriend() {
+function AddFriend({
+  onAddFriend,
+  // setShowAddFriend,
+  name,
+  setName,
+  image,
+  setImage,
+  expense,
+  setExpense,
+}) {
+  function handleSumbit(e) {
+    e.preventDefault();
+
+    if (!name || !image) return;
+
+    const id = crypto.randomUUID();
+    const newFriend = {
+      name,
+      image: `${image}?=${id}`,
+      expense,
+      id,
+    };
+
+    onAddFriend(newFriend);
+
+    setName("");
+    setImage("https://i.pravatar.cc/48");
+    setExpense("");
+  }
+
   return (
-    <form className="form-add-friend">
+    <form className="form-add-friend" onSubmit={handleSumbit}>
       <label>Friend name</label>
-      <input type="text"></input>
+      <input
+        type="text"
+        value={name}
+        onChange={(el) => setName(el.target.value)}
+      ></input>
       <label>Image URL</label>
-      <input type="text" placeholder="https://i.pravatar.cc/48"></input>
+      <input
+        type="text"
+        placeholder="https://i.pravatar.cc/48"
+        value={image}
+        onChange={(el) => setImage(el.target.value)}
+      ></input>
       <label>Expense in €</label>
-      <input type="text"></input>
+      <input
+        type="text"
+        value={expense}
+        onChange={(el) => setExpense(Number(el.target.value))}
+      ></input>
+      <Button>Add</Button>
     </form>
   );
 }
 
-function EditFriend(name, image, expense) {
+function EditFriend({
+  selectedFriend,
+  onEditFriend,
+  name,
+  setName,
+  image,
+  setImage,
+  expense,
+  setExpense,
+}) {
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!expense) return;
+
+    console.log(selectedFriend);
+
+    const updatedFriend = {
+      ...selectedFriend,
+      // name: name,
+      // image: image,
+      expense: expense,
+    };
+
+    console.log(updatedFriend);
+    onEditFriend(updatedFriend);
+  }
+
   return (
-    <form className="form-add-friend">
-      <label>Friend name</label>
-      <input type="text"></input>
-      <label>Image URL</label>
-      <input type="text" placeholder="https://i.pravatar.cc/48"></input>
+    <form className="form-add-friend" onSubmit={handleSubmit}>
+      {/* <label>Friend name</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(el) => setName(el.target.value)}
+      ></input> */}
+      {/* <label>Image URL</label>
+      <input
+        type="text"
+        value={image}
+        onChange={(el) => setImage(el.target.value)}
+      ></input> */}
       <label>Expense in €</label>
-      <input type="text"></input>
+      <input
+        type="text"
+        value={expense}
+        onChange={(el) => setExpense(Number(el.target.value))}
+        placeholder={selectedFriend.expense}
+      ></input>
+      <Button>Update</Button>
     </form>
+  );
+}
+
+function Result({ friends, averageExpense }) {
+  return (
+    <div className="result">
+      <ul>
+        {friends.map((friend) => (
+          <li>
+            <h3
+              className={averageExpense - friend.expense > 0 ? "red" : "green"}
+            >
+              {averageExpense - friend.expense > 0 ? "OWES" : "GETS"}
+            </h3>
+            <p>€{Math.abs((averageExpense - friend.expense).toFixed(0))}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
