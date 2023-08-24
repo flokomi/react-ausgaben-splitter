@@ -26,10 +26,10 @@ body {
 }
 
 .app {
-  /* min-height: 66vh; */
+  /* min-height: 33vh; */
   display: grid;
-  grid-template-columns: 38rem 15rem;
-  column-gap: 4rem;
+  grid-template-columns: 35rem 15rem;
+  column-gap: 3rem;
   align-items: start;
 }
 
@@ -37,6 +37,14 @@ body {
   grid-column: span 2;
   height: 6rem;
   font-size: 4.2rem;
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.app h2 {
+  grid-column: span 2;
+  height: 6rem;
+  font-size: 2.8rem;
   text-align: center;
 }
 
@@ -81,13 +89,19 @@ form > .btn {
 }
 
 .result li {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 8rem auto 1.2rem;
 }
 
 .result li {
   padding: 1.7rem;
   padding-left: 0;
+}
+
+.result span {
+  font-size: 2.4rem;
+  font-weight: bold;
+  text-align: right;
 }
 
 .selected,
@@ -108,6 +122,11 @@ form > .btn {
 .sidebar li p,
 .result li p {
   font-size: 2.4rem;
+}
+
+.result li p {
+  text-align: right;
+  font-weight: bold;
 }
 
 .sidebar > div .btn {

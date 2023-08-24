@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "animate.css";
 
 // const initialFriends = [
 //   {
@@ -21,9 +22,9 @@ import { useState } from "react";
 //   },
 // ];
 
-function Button({ children, onClick, friend }) {
+function Button({ children, onClick, animate }) {
   return (
-    <button className="btn {selected}" onClick={onClick}>
+    <button className={`btn ${animate}`} onClick={onClick}>
       {children}
     </button>
   );
@@ -92,9 +93,12 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>
-        Total: €{totalExpense}, each €{averageExpense.toFixed(0)}
-      </h1>
+      <h1>Expense Splitter</h1>
+      {friends.length > 1 && (
+        <h2>
+          Total: €{totalExpense} / For each: €{averageExpense.toFixed(0)}
+        </h2>
+      )}
       <div className="sidebar">
         <FriendList
           friends={friends}
@@ -119,7 +123,15 @@ export default function App() {
               ></AddFriend>
             )}
             {showEditFriend === false && (
-              <Button onClick={handleShowAddFriend}>
+              <Button
+                onClick={handleShowAddFriend}
+                animate={
+                  friends.length === 0
+                    ? "animate__animated animate__backInDown"
+                    : ""
+                }
+                friends={friends}
+              >
                 {showAddFriend ? "Close" : "Add a friend"}
               </Button>
             )}
@@ -305,19 +317,20 @@ function EditFriend({
 
 function Result({ friends, averageExpense }) {
   return (
-    <div className="result">
-      <ul>
-        {friends.map((friend) => (
-          <li>
-            <h3
+    friends.length > 1 && (
+      <div className="result">
+        <ul>
+          {friends.map((friend) => (
+            <li
               className={averageExpense - friend.expense > 0 ? "red" : "green"}
             >
-              {averageExpense - friend.expense > 0 ? "OWES" : "GETS"}
-            </h3>
-            <p>€{Math.abs((averageExpense - friend.expense).toFixed(0))}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+              <h3>{averageExpense - friend.expense > 0 ? "OWES" : "GETS"}</h3>
+              <p>€{Math.abs((averageExpense - friend.expense).toFixed(0))}</p>
+              <span>!</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
   );
 }
