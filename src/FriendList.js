@@ -2,6 +2,7 @@ import Friend from "./Friend";
 
 export default function FriendList({
   friends,
+  setFriends,
   onClick,
   selectedFriend,
   onSelection,
@@ -12,6 +13,8 @@ export default function FriendList({
       {friends.map((friend) => (
         <Friend
           friend={friend}
+          friends={friends}
+          setFriends={setFriends}
           key={friend.id}
           onClick={onClick}
           selectedFriend={selectedFriend}
