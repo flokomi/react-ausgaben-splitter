@@ -212,4 +212,11 @@ input {
     padding: 1.2rem 1.8rem;
     font-size: 1.6rem;
   }
+
+  .btn-welcome {
+    /* margin-right: 3rem !important; */
+    padding: 2rem 4rem;
+    font-size: 2rem;
+    margin-left: 7rem !important;
+  }
 }
