@@ -123,7 +123,8 @@ export default function App() {
               ></AddFriend>
             )}
             <div
-              className={friends.length === 0 && !showAddFriend ? "test" : ""}
+              // Butten center for start screen
+              className={friends.length === 0 && !showAddFriend ? "center" : ""}
             >
               {showEditFriend === false && (
                 <Button

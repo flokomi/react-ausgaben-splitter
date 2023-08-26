@@ -49,7 +49,7 @@ body {
   text-align: center;
 }
 
-.test {
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,7 +73,7 @@ body {
 
 .sidebar > div .btn {
   /* float: right; */
-  margin-left: 4rem;
+  margin-left: 5rem;
 }
 
 form > .btn {
@@ -105,6 +105,7 @@ form > .btn {
   gap: 0.4rem;
   font-size: 1.4rem;
   margin-bottom: 2rem;
+  justify-content: center;
 }
 
 /* .friend-row {
@@ -126,7 +127,7 @@ form > .btn {
   padding: 1.2rem;
   border-radius: 8px;
   transition: 0.3s;
-  margin-right: 2rem;
+  /* margin-right: 2rem; */
 }
 
 .selected,
@@ -167,7 +168,7 @@ form {
   align-items: center;
   gap: 1.2rem;
   width: 34.8rem;
-  margin-left: 2.6rem;
+  /* margin-left: 2.6rem; */
 }
 
 label {
@@ -211,6 +212,11 @@ input {
     min-height: 37vh;
   }
 
+  .sidebar > div .btn {
+    /* float: right; */
+    margin-left: 6.2rem;
+  }
+
   .sidebar ul {
     row-gap: 2.6rem;
   }
@@ -237,6 +243,11 @@ input {
 /**BELOW 35*16 = 560px (Phones)**/
 /************************/
 @media (max-width: 35em) {
+  .sidebar > div .btn {
+    /* float: right; */
+    margin-left: 7rem;
+  }
+
   .sidebar li {
     column-gap: 1.2rem;
   }

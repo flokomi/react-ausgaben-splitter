@@ -31,28 +31,30 @@ export default function AddFriend({
   }
 
   return (
-    <form className="form-add-friend" onSubmit={handleSumbit}>
-      <label>Friend name</label>
-      <input
-        type="text"
-        value={name}
-        onChange={(el) => setName(el.target.value)}
-      ></input>
-      <label>Image URL</label>
-      <input
-        type="text"
-        placeholder="https://i.pravatar.cc/48"
-        value={image}
-        onChange={(el) => setImage(el.target.value)}
-        disabled
-      ></input>
-      <label>Expense in €</label>
-      <input
-        type="text"
-        value={expense}
-        onChange={(el) => setExpense(Number(el.target.value))}
-      ></input>
-      <Button>Add</Button>
-    </form>
+    <div className="center">
+      <form className="form-add-friend" onSubmit={handleSumbit}>
+        <label>Friend name</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(el) => setName(el.target.value)}
+        ></input>
+        <label>Image URL</label>
+        <input
+          type="text"
+          placeholder="https://i.pravatar.cc/48"
+          value={image}
+          onChange={(el) => setImage(el.target.value)}
+          disabled
+        ></input>
+        <label>Expense in €</label>
+        <input
+          type="text"
+          value={expense}
+          onChange={(el) => setExpense(Number(el.target.value))}
+        ></input>
+        <Button>Add</Button>
+      </form>
+    </div>
   );
 }
