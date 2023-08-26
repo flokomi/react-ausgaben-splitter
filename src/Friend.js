@@ -30,12 +30,13 @@ export default function Friend({
   setFriends,
   selectedFriend,
   onSelection,
+
+  averageExpense,
 }) {
   const isSelected = selectedFriend?.id === friend.id;
 
   function handleDelete() {
-    let id = null;
-
+    let id = 0;
     friends.map((cur) => (cur.id === friend.id ? (id = cur.id) : null));
 
     setFriends((friends) => friends.filter((friend) => friend.id !== id));
@@ -46,6 +47,7 @@ export default function Friend({
       <button className="btn-delete" onClick={handleDelete}>
         <FontAwesomeIcon icon={faTrashCan} />
       </button>
+
       <li className={isSelected ? "selected" : ""}>
         <img src={friend.image} alt="user"></img>
         <h3>{friend.name}</h3>
@@ -54,6 +56,16 @@ export default function Friend({
           {!isSelected ? "Edit" : "Close"}
         </Button>
       </li>
+
+      <div
+        className={`result ${
+          averageExpense - friend.expense > 0 ? "red" : "green"
+        }
+          key={friend.id}`}
+      >
+        <p>{averageExpense - friend.expense > 0 ? "OWES" : "GETS"}</p>
+        <span>€{Math.abs((averageExpense - friend.expense).toFixed(0))} !</span>
+      </div>
     </div>
   );
 }

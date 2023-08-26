@@ -1,32 +1,30 @@
 import { useState } from "react";
 import "animate.css";
 import FriendList from "./FriendList.js";
-// import Friend from "./Friend.js";
 import Button from "./Button.js";
 import AddFriend from "./AddFriend.js";
 import EditFriend from "./EditFriend.js";
-import Result from "./Result.js";
 
-// const initialFriends = [
-//   {
-//     id: 7373983948,
-//     name: "Flo",
-//     image: "https://i.pravatar.cc/48?u=7373983948",
-//     expense: 35,
-//   },
-//   {
-//     id: 7373987738,
-//     name: "Dani",
-//     image: " https://i.pravatar.cc/48?u=7373987738",
-//     expense: 70,
-//   },
-//   {
-//     id: 2292983948,
-//     name: "Axel",
-//     image: "https://i.pravatar.cc/48?u=2292983948",
-//     expense: 5,
-//   },
-// ];
+const initialFriends = [
+  {
+    id: 7373983948,
+    name: "Flo",
+    image: "https://i.pravatar.cc/48?u=7373983948",
+    expense: 35,
+  },
+  {
+    id: 7373987738,
+    name: "Dani",
+    image: " https://i.pravatar.cc/48?u=7373987738",
+    expense: 70,
+  },
+  {
+    id: 2292983948,
+    name: "Axel",
+    image: "https://i.pravatar.cc/48?u=2292983948",
+    expense: 5,
+  },
+];
 
 export default function App() {
   const [friends, setFriends] = useState([]);
@@ -105,6 +103,7 @@ export default function App() {
           selectedFriend={selectedFriend}
           onSelection={handleSelection}
           showEditFriend={showEditFriend}
+          averageExpense={averageExpense}
         />
 
         {
@@ -157,7 +156,6 @@ export default function App() {
           </div>
         }
       </div>
-      <Result friends={friends} averageExpense={averageExpense} />
     </div>
   );
 }

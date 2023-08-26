@@ -7,6 +7,8 @@ export default function FriendList({
   selectedFriend,
   onSelection,
   showEditFriend,
+
+  averageExpense,
 }) {
   return (
     <ul>
@@ -20,6 +22,7 @@ export default function FriendList({
           selectedFriend={selectedFriend}
           onSelection={onSelection}
           showEditFriend={showEditFriend}
+          averageExpense={averageExpense}
         />
       ))}
     </ul>
