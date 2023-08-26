@@ -89,12 +89,14 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>Expense Splitter</h1>
-      {friends.length > 1 && (
-        <h2>
-          Total: €{totalExpense} / For each: €{averageExpense.toFixed(0)}
-        </h2>
-      )}
+      <div className="main-header">
+        <h1>Expense Splitter</h1>
+        {friends.length > 1 && (
+          <h2>
+            Total: €{totalExpense} / For each: €{averageExpense.toFixed(0)}
+          </h2>
+        )}
+      </div>
       <div className="sidebar">
         <FriendList
           friends={friends}
@@ -120,22 +122,26 @@ export default function App() {
                 setExpense={setExpense}
               ></AddFriend>
             )}
-            {showEditFriend === false && (
-              <Button
-                onClick={handleShowAddFriend}
-                btnAnimate={
-                  friends.length === 0
-                    ? "animate__animated animate__backInDown"
-                    : ""
-                }
-                btnWelcome={
-                  friends.length === 0 && !showAddFriend ? "btn-welcome" : ""
-                }
-                friends={friends}
-              >
-                {showAddFriend ? "Close" : "Add a friend"}
-              </Button>
-            )}
+            <div
+              className={friends.length === 0 && !showAddFriend ? "test" : ""}
+            >
+              {showEditFriend === false && (
+                <Button
+                  onClick={handleShowAddFriend}
+                  btnAnimate={
+                    friends.length === 0
+                      ? "animate__animated animate__backInDown"
+                      : ""
+                  }
+                  btnWelcome={
+                    friends.length === 0 && !showAddFriend ? "btn-welcome" : ""
+                  }
+                  friends={friends}
+                >
+                  {showAddFriend ? "Close" : "Add a friend"}
+                </Button>
+              )}
+            </div>
           </div>
         }
 
