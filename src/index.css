@@ -74,13 +74,17 @@ body {
 
 .sidebar > div .btn {
   /* float: right; */
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
 }
 
 form > .btn {
   margin-top: 0.6rem;
   margin-right: 0 !important;
   grid-column: 2;
+}
+
+.btn-addFriend {
+  margin-left: 7.4rem !important;
 }
 
 .btn-delete {
@@ -214,9 +218,13 @@ input {
     min-height: 37vh;
   }
 
-  .sidebar > div .btn {
-    /* float: right; */
-    margin-left: 6.2rem;
+  .btn {
+    padding: 1.2rem 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .btn-addFriend {
+    margin-left: 2.4rem !important;
   }
 
   .sidebar ul {
@@ -227,11 +235,6 @@ input {
     grid-row: 2;
     grid-column: 2;
     margin-left: 7rem;
-  }
-
-  .btn {
-    padding: 1.2rem 1.8rem;
-    font-size: 1.6rem;
   }
 
   .btn-welcome {
@@ -247,7 +250,7 @@ input {
 @media (max-width: 35em) {
   .sidebar > div .btn {
     /* float: right; */
-    margin-left: 7rem;
+    /* margin-left: 7rem; */
   }
 
   /* .sidebar li {

@@ -138,6 +138,7 @@ export default function App() {
                   btnWelcome={
                     friends.length === 0 && !showAddFriend ? "btn-welcome" : ""
                   }
+                  btnAddFriend={"btn-addFriend"}
                   friends={friends}
                 >
                   {showAddFriend ? "Close" : "Add a friend"}
