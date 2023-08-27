@@ -43,28 +43,32 @@ export default function Friend({
   }
 
   return (
-    <div className="friend-row">
-      <button className="btn-delete" onClick={handleDelete}>
-        <FontAwesomeIcon icon={faTrashCan} />
-      </button>
+    <div className="center">
+      <div className="friend-row">
+        <button className="btn-delete" onClick={handleDelete}>
+          <FontAwesomeIcon icon={faTrashCan} />
+        </button>
 
-      <li className={isSelected ? "selected" : ""}>
-        <img src={friend.image} alt="user"></img>
-        <h3>{friend.name}</h3>
-        <p>€{friend.expense}</p>
-        <Button onClick={() => onSelection(friend)}>
-          {!isSelected ? "Edit" : "Close"}
-        </Button>
-      </li>
+        <li className={isSelected ? "selected" : ""}>
+          <img src={friend.image} alt="user"></img>
+          <h3>{friend.name}</h3>
+          <p>€{friend.expense}</p>
+          <Button onClick={() => onSelection(friend)}>
+            {!isSelected ? "Edit" : "Close"}
+          </Button>
+        </li>
 
-      <div
-        className={`result ${
-          averageExpense - friend.expense > 0 ? "red" : "green"
-        }
+        <div
+          className={`result ${
+            averageExpense - friend.expense > 0 ? "red" : "green"
+          }
           key={friend.id}`}
-      >
-        <p>{averageExpense - friend.expense > 0 ? "OWES" : "GETS"}</p>
-        <span>€{Math.abs((averageExpense - friend.expense).toFixed(0))} !</span>
+        >
+          <p>{averageExpense - friend.expense > 0 ? "OWES" : "GETS"}</p>
+          <span>
+            €{Math.abs((averageExpense - friend.expense).toFixed(0))} !
+          </span>
+        </div>
       </div>
     </div>
   );

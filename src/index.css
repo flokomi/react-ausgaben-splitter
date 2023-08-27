@@ -18,11 +18,12 @@ html {
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--color-lightest);
+  margin: 12rem 0 12rem 0;
 }
 
 .app {
@@ -89,7 +90,8 @@ form > .btn {
   border: none;
   background-color: var(--color-lightest);
   transition: 0.3s;
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
+  margin-right: 0.8rem;
 }
 
 .btn-welcome {
@@ -121,7 +123,7 @@ form > .btn {
 
 .sidebar li {
   display: grid;
-  grid-template-columns: 4.2rem 7rem 7rem 7rem;
+  grid-template-columns: 4.2rem 7rem 7rem 9rem;
   align-items: center;
   column-gap: 1.6rem;
   padding: 1.2rem;
@@ -248,7 +250,16 @@ input {
     margin-left: 7rem;
   }
 
-  .sidebar li {
+  /* .sidebar li {
     column-gap: 1.2rem;
+  } */
+}
+
+/************************/
+/**BELOW 25*16 = 400px ( small Phones)**/
+/************************/
+@media (max-width: 25em) {
+  .sidebar li {
+    grid-template-columns: 4.2rem 6rem 6rem 9rem;
   }
 }
