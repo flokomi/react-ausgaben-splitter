@@ -91,7 +91,7 @@ export default function App() {
   return (
     <div className="app">
       <div className="main-header">
-        <h1>Expense Splitter</h1>
+        <h1>Expenses Splitter</h1>
         {friends.length > 1 && (
           <h2>
             Total: €{totalExpense} / For each: €{averageExpense.toFixed(0)}
