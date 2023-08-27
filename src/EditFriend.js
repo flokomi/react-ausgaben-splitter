@@ -29,27 +29,29 @@ export default function EditFriend({
   }
 
   return (
-    <form className="form-add-friend" onSubmit={handleSubmit}>
-      {/* <label>Friend name</label>
+    <div className="center">
+      <form className="form-add-friend" onSubmit={handleSubmit}>
+        {/* <label>Friend name</label>
             <input
               type="text"
               value={name}
               onChange={(el) => setName(el.target.value)}
             ></input> */}
-      {/* <label>Image URL</label>
+        {/* <label>Image URL</label>
             <input
               type="text"
               value={image}
               onChange={(el) => setImage(el.target.value)}
             ></input> */}
-      <label>Expense in €</label>
-      <input
-        type="text"
-        value={expense}
-        onChange={(el) => setExpense(Number(el.target.value))}
-        placeholder={selectedFriend.expense}
-      ></input>
-      <Button>Update</Button>
-    </form>
+        <label>Expense in €</label>
+        <input
+          type="text"
+          value={expense}
+          onChange={(el) => setExpense(Number(el.target.value))}
+          placeholder={selectedFriend.expense}
+        ></input>
+        <Button>Update</Button>
+      </form>
+    </div>
   );
 }
