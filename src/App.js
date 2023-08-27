@@ -5,8 +5,6 @@ import Button from "./Button.js";
 import AddFriend from "./AddFriend.js";
 import EditFriend from "./EditFriend.js";
 
-import { useRef } from "react";
-
 // const initialFriends = [
 //   {
 //     id: 7373983948,
