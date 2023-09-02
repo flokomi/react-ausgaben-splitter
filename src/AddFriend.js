@@ -49,8 +49,9 @@ export default function AddFriend({
         ></input>
         <label>Expense in €</label>
         <input
-          type="text"
+          type="number"
           value={expense}
+          placeholder="0.00"
           onChange={(el) => setExpense(Number(el.target.value))}
         ></input>
         <Button>Add</Button>

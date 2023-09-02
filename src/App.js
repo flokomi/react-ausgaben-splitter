@@ -5,6 +5,8 @@ import Button from "./Button.js";
 import AddFriend from "./AddFriend.js";
 import EditFriend from "./EditFriend.js";
 
+// import { useRef } from "react";
+
 // const initialFriends = [
 //   {
 //     id: 7373983948,
@@ -94,7 +96,8 @@ export default function App() {
         <h1>Expenses Splitter</h1>
         {friends.length > 1 && (
           <h2>
-            Total: €{totalExpense} / For each: €{averageExpense.toFixed(0)}
+            Total: €{totalExpense} / For each: €{averageExpense.toFixed(0)}{" "}
+            (rounded)
           </h2>
         )}
       </div>
@@ -114,7 +117,6 @@ export default function App() {
             {showAddFriend && (
               <AddFriend
                 onAddFriend={handleAddFriend}
-                // setShowAddFriend={setShowAddFriend}
                 name={name}
                 setName={setName}
                 image={image}
